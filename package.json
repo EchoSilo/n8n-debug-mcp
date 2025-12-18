@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/username/n8n-debug-mcp.git"
+    "url": "git+https://github.com/EchoSilo/n8n-debug-mcp.git"
   },
   "keywords": [
     "mcp",
@@ -25,12 +25,12 @@
     "ai-agent",
     "workflow-debugging"
   ],
-  "author": "Jamal",
+  "author": "Anonymous Developer",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/username/n8n-debug-mcp/issues"
+    "url": "https://github.com/EchoSilo/n8n-debug-mcp/issues"
   },
-  "homepage": "https://github.com/username/n8n-debug-mcp#readme",
+  "homepage": "https://github.com/EchoSilo/n8n-debug-mcp#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
     "axios": "^1.6.0"
