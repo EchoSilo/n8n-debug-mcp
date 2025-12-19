@@ -33,7 +33,8 @@
   "homepage": "https://github.com/EchoSilo/n8n-debug-mcp#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
-    "axios": "^1.6.0"
+    "axios": "^1.6.0",
+    "dotenv": "^17.2.3"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",

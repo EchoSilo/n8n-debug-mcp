@@ -33,10 +33,14 @@ function validateId(id: string, idType: string): void {
 }
 
 export function validateApiKey(key: string): void {
-  // n8n API keys start with this prefix
-  if (!key.startsWith('n8n_api_')) {
+  // Accept both n8n_api_ format and JWT tokens
+  const isValidFormat =
+    key.startsWith('n8n_api_') ||  // Standard n8n API key
+    (key.includes('.') && key.split('.').length === 3);  // JWT token (header.payload.signature)
+
+  if (!isValidFormat) {
     throw new Error(
-      'Invalid N8N_API_KEY format: must start with "n8n_api_". ' +
+      'Invalid N8N_API_KEY format: must be either "n8n_api_..." or a valid JWT token. ' +
       'Generate a valid key in n8n Settings > n8n API.'
     );
   }

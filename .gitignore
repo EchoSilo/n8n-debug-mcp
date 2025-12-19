@@ -2,6 +2,8 @@ node_modules/
 dist/
 *.log
 .env
+.env.local
+.env.*.local
 .DS_Store
 *.tmp.*
 .vscode/
@@ -9,6 +11,16 @@ dist/
 *.swp
 *.swo
 *~
-.env.local
-.env.*.local
 coverage/
+.claude/*
+
+# Sensitive files - never commit
+*.key
+*.pem
+*.p12
+*.pfx
+.credentials
+credentials.json
+secrets.json
+test-mcp.js
+test-tools.js
