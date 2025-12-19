@@ -1,4 +1,5 @@
 import { N8nClient } from '../n8n-client.js';
+import { validateWorkflowId } from '../utils/validator.js';
 import { formatExecutionList } from '../formatter.js';
 
 export const getWorkflowExecutionsTool = {
@@ -43,6 +44,11 @@ export async function handleGetWorkflowExecutions(
   try {
     let workflowId = args.workflowId;
     let workflowName = args.workflowName;
+
+    // SECURITY: Validate workflowId if provided
+    if (workflowId) {
+      validateWorkflowId(workflowId);
+    }
 
     // If name provided, find workflow ID
     if (!workflowId && workflowName) {

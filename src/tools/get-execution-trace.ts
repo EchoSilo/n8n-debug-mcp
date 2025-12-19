@@ -1,4 +1,5 @@
 import { N8nClient } from '../n8n-client.js';
+import { validateExecutionId } from '../utils/validator.js';
 import { formatExecutionTrace } from '../formatter.js';
 
 export const getExecutionTraceTool = {
@@ -27,6 +28,9 @@ export async function handleGetExecutionTrace(
   const client = new N8nClient();
 
   try {
+    // SECURITY: Validate input
+    validateExecutionId(args.executionId);
+
     // Fetch execution with full data
     const execution = await client.getExecution(args.executionId, true);
 

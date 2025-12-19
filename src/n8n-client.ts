@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
+import { validateApiKey, validateBaseUrl, validateExecutionId, validateWorkflowId } from './utils/validator.js';
 
 // Types for n8n API responses
 export interface N8nWorkflow {
@@ -89,12 +90,18 @@ export class N8nClient {
   private client: AxiosInstance;
 
   constructor(apiUrl?: string, apiKey?: string) {
-    const baseURL = apiUrl || process.env.N8N_API_URL || 'http://localhost:5678/api/v1';
+    const baseURL = apiUrl || process.env.N8N_API_URL || 'https://localhost:5678/api/v1';
     const key = apiKey || process.env.N8N_API_KEY;
 
     if (!key) {
       throw new Error('N8N_API_KEY is required. Set it in environment variables or pass to constructor.');
     }
+
+    // SECURITY: Validate API key format
+    validateApiKey(key);
+
+    // SECURITY: Validate URL scheme (HTTPS required for non-localhost)
+    validateBaseUrl(baseURL);
 
     this.client = axios.create({
       baseURL,
@@ -120,6 +127,7 @@ export class N8nClient {
   }
 
   async getWorkflow(workflowId: string): Promise<N8nWorkflow> {
+    validateWorkflowId(workflowId); // SECURITY: Prevent path traversal
     const response = await this.client.get(`/workflows/${workflowId}`);
     return response.data;
   }
@@ -141,6 +149,7 @@ export class N8nClient {
   }
 
   async getExecution(executionId: string, includeData = true): Promise<N8nExecution> {
+    validateExecutionId(executionId); // SECURITY: Prevent path traversal
     const response = await this.client.get(`/executions/${executionId}`, {
       params: { includeData },
     });

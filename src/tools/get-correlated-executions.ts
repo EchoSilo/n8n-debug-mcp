@@ -1,4 +1,5 @@
 import { N8nClient } from '../n8n-client.js';
+import { validateExecutionId } from '../utils/validator.js';
 import { ExecutionCorrelator } from '../correlator.js';
 import { formatCorrelationTree } from '../formatter.js';
 
@@ -29,6 +30,9 @@ export async function handleGetCorrelatedExecutions(
   const correlator = new ExecutionCorrelator(client);
 
   try {
+    // SECURITY: Validate input
+    validateExecutionId(args.executionId);
+
     // Initialize correlator (fetches workflow metadata)
     await correlator.initialize();
 

@@ -241,6 +241,39 @@ Claude will use the `list_active_workflows` tool automatically. You're debugging
 
 ---
 
+## ⚠️ Security & Privacy Notice
+
+**Important: This MCP sends workflow execution data to Claude/Anthropic's APIs.**
+
+### What Data Is Shared
+When you use this MCP to debug workflows, the following data is sent to Claude:
+- Full execution traces (node-by-node inputs and outputs)
+- Error messages and stack traces
+- User IDs, correlation IDs, and other context data in your workflow payloads
+- Workflow configurations and node parameters
+
+### Your Responsibilities
+- ✅ Only use this MCP with workflows containing non-sensitive data, OR
+- ✅ Accept the risk that sensitive data (PII, credentials, tokens) in workflow outputs will be sent to Anthropic
+- ✅ Ensure compliance with your organization's data governance policies
+- ✅ Review Anthropic's data usage policy: https://www.anthropic.com/legal/privacy
+
+### What This MCP Does NOT Do
+- ❌ Does not redact or filter sensitive data from execution traces
+- ❌ Does not implement PII detection or sanitization
+- ❌ Does not provide audit logging for compliance
+
+**Why?** MCPs are protocol bridges, not security layers. They pass data between systems transparently. Data privacy and governance is the user's responsibility.
+
+### Secure Transport
+- ✅ Requires HTTPS for non-localhost connections by default
+- ✅ Validates API key format to prevent misconfigurations
+- ✅ Prevents path traversal attacks via input validation
+
+For local development with HTTP, set `ALLOW_HTTP=true` in your environment.
+
+---
+
 ## 💡 Pro Tips & Common Scenarios
 
 ### Scenario 1: "Something Failed But I Don't Know What"
